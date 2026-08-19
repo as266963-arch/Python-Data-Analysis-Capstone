@@ -1,129 +1,136 @@
 # Python Data Analysis Capstone
 
-A Python-based data analysis project focused on data creation, cleaning, transformation, dataset merging, business-rule implementation, aggregation, and CSV reporting using pandas and NumPy.
+A Python-based data analysis project focused on data cleaning, transformation, DataFrame merging, conditional calculations, and data aggregation using Pandas and NumPy.
 
 ## Project Overview
 
-This capstone demonstrates an end-to-end data preparation and analysis workflow using three related datasets:
+This capstone project demonstrates practical Python data analysis techniques by working with multiple CSV datasets and performing a series of data transformation and analysis tasks.
 
-- Employee data
-- Seniority data
-- Project data
+The project covers:
 
-The datasets are created as pandas DataFrames, exported to CSV files, transformed through multiple business rules, merged using employee IDs, and used to produce consolidated reporting outputs.
+- Reading and processing CSV datasets
+- Handling missing values
+- Calculating running averages
+- Merging multiple DataFrames
+- Creating calculated columns
+- Applying conditional logic
+- Performing group-based aggregation
+- Exporting processed results to CSV files
 
 ## Tools & Technologies
 
 - Python
-- pandas
+- Pandas
 - NumPy
 - Jupyter Notebook
 - CSV
 
-## Dataset Structure
+## Tasks Completed
 
-### Employee Dataset
-Contains:
+### Task 2 — Replace Missing Cost Values Using a Running Average
 
-- Employee ID
-- Name
-- Gender
-- City
-- Age
+Missing values in the `Cost` column were identified and replaced using a running average calculated from previously available cost values.
 
-### Seniority Dataset
-Contains:
+**Key concepts:**
+- `pd.read_csv()`
+- `np.isnan()`
+- `enumerate()`
+- Running total and count
+- Conditional logic
+- `DataFrame.to_csv()`
 
-- Employee ID
-- Designation Level
+#### Solution
 
-### Project Dataset
-Contains:
+![Task 2 Solution](screenshots/Task_2_Solution.PNG)
 
-- Employee ID
-- Project
-- Cost
-- Status
+#### Output
 
-Project statuses include:
+![Task 2 Output](screenshots/Task_2_Output.PNG)
 
-- Finished
-- Ongoing
-- Failed
 
-## Analysis Workflow
+### Task 4 — Merge All Three DataFrames into a Single DataFrame
 
-### 1. DataFrame Creation & CSV Export
+Employee, project, and seniority datasets were merged using the common `ID` column to create a consolidated DataFrame.
 
-Created Employee, Seniority, and Project DataFrames using pandas and exported them as CSV files.
+**Key concepts:**
+- Reading multiple CSV files
+- `DataFrame.merge()`
+- Joining datasets using a common key
+- Creating a final merged DataFrame
+- Exporting the merged dataset
 
-### 2. Missing Value Handling
+#### Solution
 
-Identified missing project cost values and replaced them using a running average calculated from previously available cost values.
+![Task 4 Solution](screenshots/Task_4_Solution.PNG)
 
-### 3. Name Transformation
+#### Output
 
-Split the employee `Name` column into:
+![Task 4 Output](screenshots/Task_4_Output.PNG)
 
-- First Name
-- Last Name
 
-The original `Name` column was then removed.
+### Task 5 — Calculate and Add a 5% Bonus for Finished Projects
 
-### 4. Dataset Merging
+A `Bonus` column was added to the final DataFrame. Projects with a `Finished` status received a bonus equal to 5% of their project cost.
 
-Merged the Employee and Seniority datasets using `ID`, followed by merging the Project dataset using the same employee ID.
+**Calculation:**
 
-This produced a consolidated dataset containing employee, seniority, and project information.
+`Bonus = Cost × 0.05`
 
-### 5. Bonus Calculation
+**Key concepts:**
+- Conditional filtering
+- `.loc[]`
+- Calculated columns
+- Arithmetic operations
+- CSV export
 
-Applied a 5% bonus to projects with a `Finished` status.
+#### Solution
 
-Projects with other statuses received a bonus value of zero.
+![Task 5 Solution](screenshots/Task_5_Solution.PNG)
 
-### 6. Employee Demotion Rule
+#### Output
 
-Employees associated with failed projects had their designation level reduced by 1.
+![Task 5 Output](screenshots/Task_5_Output.PNG)
 
-Records with designation levels above 4 were excluded from the resulting dataset.
 
-### 7. Gender-Based Titles
+### Task 9 — Calculate Total Project Cost for Each Employee
 
-Added titles to employee first names based on gender:
+The total project cost for each employee was calculated by grouping the final dataset by employee `ID` and summing the `Cost` values.
 
-- `Mr.` for male employees
-- `Mrs.` for female employees
+**Key concepts:**
+- `groupby()`
+- `agg()`
+- `sum()`
+- `reset_index()`
+- Column renaming
+- Aggregated DataFrame creation
+- CSV export
 
-The Gender column was then removed.
+#### Solution
 
-### 8. Age-Based Promotion
+![Task 9 Solution](screenshots/Task_9_Solution.PNG)
 
-Employees older than 29 years were promoted by reducing their designation level by 1.
+#### Output
 
-### 9. Total Project Cost
+![Task 9 Output](screenshots/Task_9_Output.PNG)
 
-Calculated the total project cost for each employee using `groupby()` and aggregation.
 
-A separate reporting DataFrame was created containing:
-
-- Employee ID
-- First Name
-- Total Cost
-
-This output was exported as `TotalProjCost.csv`.
-
-### 10. City-Based Filtering
-
-Filtered the consolidated dataset to identify employee records where the city name contains the letter `o`, using a case-insensitive condition.
-
-## Generated CSV Files
-
-The notebook generates the following CSV files during execution:
+## Project Workflow
 
 ```text
-employee.csv
-seniority.csv
-project.csv
-final.csv
-TotalProjCost.csv
+CSV Datasets
+     ↓
+Data Loading
+     ↓
+Data Cleaning
+     ↓
+Data Transformation
+     ↓
+DataFrame Merging
+     ↓
+Conditional Calculations
+     ↓
+Data Aggregation
+     ↓
+Final Analysis
+     ↓
+CSV Export
